@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/screens/HomeScreen.dart';
+import 'package:bmi_calculator_clone/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-# bmi_calculator
+# bmi_calculator_clone
 
 A new Flutter project.
 
