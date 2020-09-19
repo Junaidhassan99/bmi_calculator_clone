@@ -7,10 +7,7 @@ enum GenderEnum {
 }
 
 class GenderSelector extends StatelessWidget {
-  final GenderEnum gender;
-  GenderSelector(this.gender);
-  @override
-  Widget build(BuildContext context) {
+  Widget _genderTileWidget(BuildContext context, GenderEnum gender) {
     return Expanded(
       child: Container(
         height: 150,
@@ -26,11 +23,24 @@ class GenderSelector extends StatelessWidget {
               ),
               Text(
                 gender == GenderEnum.MALE ? 'MALE' : 'FEMALE',
-                style: TextStyle(fontSize: 18),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Row(
+        children: [
+          _genderTileWidget(context, GenderEnum.MALE),
+          _genderTileWidget(context, GenderEnum.FEMALE),
+        ],
       ),
     );
   }

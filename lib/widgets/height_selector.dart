@@ -20,10 +20,12 @@ class _HeightSelectorState extends State<HeightSelector> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'Height',
-              style: TextStyle(fontSize: 18),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -31,7 +33,7 @@ class _HeightSelectorState extends State<HeightSelector> {
               children: [
                 Text(
                   '183',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
@@ -45,6 +47,7 @@ class _HeightSelectorState extends State<HeightSelector> {
               ],
             ),
             Slider(
+              activeColor: Theme.of(context).accentColor,
               value: _sliderValue,
               onChanged: (value) {
                 setState(() {
