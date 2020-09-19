@@ -5,7 +5,16 @@ enum WeightAndAgeEnum {
   Age,
 }
 
-class WeightAndAge extends StatelessWidget {
+class WeightAndAge extends StatefulWidget {
+  @override
+  _WeightAndAgeState createState() => _WeightAndAgeState();
+}
+
+class _WeightAndAgeState extends State<WeightAndAge> {
+  int _weight = 0;
+
+  int _age = 0;
+
   Widget _weightAndHeightWidget(
       BuildContext context, WeightAndAgeEnum weightAndAgeEnum) {
     return Expanded(
@@ -21,7 +30,7 @@ class WeightAndAge extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               Text(
-                weightAndAgeEnum == WeightAndAgeEnum.Weight ? '79' : '19',
+                weightAndAgeEnum == WeightAndAgeEnum.Weight ? '$_weight' : '$_age',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               Row(
@@ -29,11 +38,33 @@ class WeightAndAge extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: Icon(Icons.remove),
-                    onPressed: null,
+                    onPressed: () {
+                      if (weightAndAgeEnum == WeightAndAgeEnum.Weight &&
+                          _weight > 0) {
+                        setState(() {
+                          _weight--;
+                        });
+                      } else if (weightAndAgeEnum == WeightAndAgeEnum.Age &&
+                          _age > 0) {
+                        setState(() {
+                          _age--;
+                        });
+                      }
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.add),
-                    onPressed: null,
+                    onPressed: () {
+                      if (weightAndAgeEnum == WeightAndAgeEnum.Weight) {
+                        setState(() {
+                          _weight++;
+                        });
+                      } else if (weightAndAgeEnum == WeightAndAgeEnum.Age) {
+                        setState(() {
+                          _age++;
+                        });
+                      }
+                    },
                   ),
                 ],
               ),
@@ -50,8 +81,8 @@ class WeightAndAge extends StatelessWidget {
       padding: EdgeInsets.all(15),
       child: Row(
         children: [
-          _weightAndHeightWidget(context,WeightAndAgeEnum.Weight),
-           _weightAndHeightWidget(context,WeightAndAgeEnum.Age),
+          _weightAndHeightWidget(context, WeightAndAgeEnum.Weight),
+          _weightAndHeightWidget(context, WeightAndAgeEnum.Age),
         ],
       ),
     );

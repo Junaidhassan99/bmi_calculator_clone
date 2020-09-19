@@ -11,6 +11,7 @@ class HeightSelector extends StatefulWidget {
 
 class _HeightSelectorState extends State<HeightSelector> {
   double _sliderValue = 0.0;
+  int _height = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +33,7 @@ class _HeightSelectorState extends State<HeightSelector> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '183',
+                  '$_height',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Container(
@@ -53,6 +54,7 @@ class _HeightSelectorState extends State<HeightSelector> {
                 setState(() {
                   print(value);
                   _sliderValue = value;
+                  _height = (_sliderValue * 300).round();
                 });
               },
             )
