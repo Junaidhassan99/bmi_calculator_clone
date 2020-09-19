@@ -2,10 +2,10 @@ import 'package:bmi_calculator_clone/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MainScreen());
+  runApp(BmiCalculatorApp());
 }
 
-class MainScreen extends StatelessWidget {
+class BmiCalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
