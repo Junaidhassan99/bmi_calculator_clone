@@ -14,7 +14,7 @@ class BmiCalculatorApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => BmiData(),
       child: MaterialApp(
-        theme: ThemeData(
+        theme: ThemeData.dark().copyWith(
           textTheme: TextTheme(
             //general tile text size
             bodyText1: TextStyle(fontSize: 18),
@@ -22,7 +22,7 @@ class BmiCalculatorApp extends StatelessWidget {
             bodyText2: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
           accentColor: Colors.red,
-          brightness: Brightness.dark,
+          //brightness: Brightness.dark,
         ),
         // darkTheme: ThemeData(
         //   textTheme: TextTheme(
