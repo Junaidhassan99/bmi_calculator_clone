@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bmi_calculator_clone/modals/bmi_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,9 @@ class _WeightAndAgeState extends State<WeightAndAge> {
 
   int _age = 0;
 
+  Timer timerInc;
+  Timer timerDec;
+
   Widget _renderTileNumericText(int value, String unit) {
     return Row(
       //crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -26,8 +31,8 @@ class _WeightAndAgeState extends State<WeightAndAge> {
           '$value',
           style: Theme.of(context).textTheme.bodyText2,
         ),
-        Container(padding: EdgeInsets.only(top:8,left: 2),
-         
+        Container(
+          padding: EdgeInsets.only(top: 8, left: 2),
           child: Text(
             unit,
             style: TextStyle(
@@ -37,6 +42,34 @@ class _WeightAndAgeState extends State<WeightAndAge> {
         ),
       ],
     );
+  }
+
+  void _onTapIncrement(WeightAndAgeEnum weightAndAgeEnum) {
+    if (weightAndAgeEnum == WeightAndAgeEnum.Weight) {
+      setState(() {
+        _weight++;
+      });
+      Provider.of<BmiData>(context, listen: false).setWeight(_weight);
+    } else if (weightAndAgeEnum == WeightAndAgeEnum.Age) {
+      setState(() {
+        _age++;
+      });
+      Provider.of<BmiData>(context, listen: false).setAge(_age);
+    }
+  }
+
+  void _onTapDecrement(WeightAndAgeEnum weightAndAgeEnum) {
+    if (weightAndAgeEnum == WeightAndAgeEnum.Weight && _weight > 0) {
+      setState(() {
+        _weight--;
+      });
+      Provider.of<BmiData>(context, listen: false).setWeight(_weight);
+    } else if (weightAndAgeEnum == WeightAndAgeEnum.Age && _age > 0) {
+      setState(() {
+        _age--;
+      });
+      Provider.of<BmiData>(context, listen: false).setAge(_age);
+    }
   }
 
   Widget _weightAndHeightWidget(
@@ -60,42 +93,46 @@ class _WeightAndAgeState extends State<WeightAndAge> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.remove),
-                    onPressed: () {
-                      if (weightAndAgeEnum == WeightAndAgeEnum.Weight &&
-                          _weight > 0) {
-                        setState(() {
-                          _weight--;
-                        });
-                        Provider.of<BmiData>(context, listen: false)
-                            .setWeight(_weight);
-                      } else if (weightAndAgeEnum == WeightAndAgeEnum.Age &&
-                          _age > 0) {
-                        setState(() {
-                          _age--;
-                        });
-                        Provider.of<BmiData>(context, listen: false)
-                            .setAge(_age);
-                      }
+                  GestureDetector(
+                    child: Icon(Icons.remove),
+                    onTapCancel: () {
+                      print('cancel');
+                      timerDec.cancel();
+                    },
+                    onTapDown: (TapDownDetails details) {
+                      print('down');
+                      timerDec =
+                          Timer.periodic(Duration(milliseconds: 200), (t) {
+                        _onTapDecrement(weightAndAgeEnum);
+                      });
+                    },
+                    onTapUp: (TapUpDetails details) {
+                      print('up');
+                      timerDec.cancel();
+                    },
+                    onTap: () {
+                      _onTapDecrement(weightAndAgeEnum);
                     },
                   ),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      if (weightAndAgeEnum == WeightAndAgeEnum.Weight) {
-                        setState(() {
-                          _weight++;
-                        });
-                        Provider.of<BmiData>(context, listen: false)
-                            .setWeight(_weight);
-                      } else if (weightAndAgeEnum == WeightAndAgeEnum.Age) {
-                        setState(() {
-                          _age++;
-                        });
-                        Provider.of<BmiData>(context, listen: false)
-                            .setAge(_age);
-                      }
+                  GestureDetector(
+                    child: Icon(Icons.add),
+                    onTapCancel: () {
+                      print('cancel');
+                      timerInc.cancel();
+                    },
+                    onTapDown: (TapDownDetails details) {
+                      print('down');
+                      timerInc =
+                          Timer.periodic(Duration(milliseconds: 200), (t) {
+                        _onTapIncrement(weightAndAgeEnum);
+                      });
+                    },
+                    onTapUp: (TapUpDetails details) {
+                      print('up');
+                      timerInc.cancel();
+                    },
+                    onTap: () {
+                      _onTapIncrement(weightAndAgeEnum);
                     },
                   ),
                 ],
