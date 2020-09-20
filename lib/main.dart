@@ -16,13 +16,6 @@ class BmiCalculatorApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           textTheme: TextTheme(
-            bodyText1: TextStyle(fontSize: 18),
-          ),
-          accentColor: Colors.red,
-          brightness: Brightness.light,
-        ),
-        darkTheme: ThemeData(
-          textTheme: TextTheme(
             //general tile text size
             bodyText1: TextStyle(fontSize: 18),
             //tile numbers
@@ -31,7 +24,17 @@ class BmiCalculatorApp extends StatelessWidget {
           accentColor: Colors.red,
           brightness: Brightness.dark,
         ),
-        themeMode: ThemeMode.dark,
+        // darkTheme: ThemeData(
+        //   textTheme: TextTheme(
+        //     //general tile text size
+        //     bodyText1: TextStyle(fontSize: 18),
+        //     //tile numbers
+        //     bodyText2: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        //   ),
+        //   accentColor: Colors.red,
+        //   brightness: Brightness.dark,
+        // ),
+        // themeMode: ThemeMode.dark,
         home: HomeScreen(),
         //HomeScreen(),
         routes: {
