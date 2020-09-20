@@ -1,4 +1,6 @@
+import 'package:bmi_calculator_clone/modals/bmi_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum WeightAndAgeEnum {
   Weight,
@@ -15,6 +17,28 @@ class _WeightAndAgeState extends State<WeightAndAge> {
 
   int _age = 0;
 
+  Widget _renderTileNumericText(int value, String unit) {
+    return Row(
+      //crossAxisAlignment: CrossAxisAlignment.baseline,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          '$value',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        Container(padding: EdgeInsets.only(top:8,left: 2),
+         
+          child: Text(
+            unit,
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _weightAndHeightWidget(
       BuildContext context, WeightAndAgeEnum weightAndAgeEnum) {
     return Expanded(
@@ -29,10 +53,10 @@ class _WeightAndAgeState extends State<WeightAndAge> {
                 weightAndAgeEnum == WeightAndAgeEnum.Weight ? 'Weight' : 'Age',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              Text(
-                weightAndAgeEnum == WeightAndAgeEnum.Weight ? '$_weight' : '$_age',
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
+              Container(
+                  child: weightAndAgeEnum == WeightAndAgeEnum.Weight
+                      ? _renderTileNumericText(_weight, 'kg')
+                      : _renderTileNumericText(_age, 'y')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -44,11 +68,15 @@ class _WeightAndAgeState extends State<WeightAndAge> {
                         setState(() {
                           _weight--;
                         });
+                        Provider.of<BmiData>(context, listen: false)
+                            .setWeight(_weight);
                       } else if (weightAndAgeEnum == WeightAndAgeEnum.Age &&
                           _age > 0) {
                         setState(() {
                           _age--;
                         });
+                        Provider.of<BmiData>(context, listen: false)
+                            .setAge(_age);
                       }
                     },
                   ),
@@ -59,10 +87,14 @@ class _WeightAndAgeState extends State<WeightAndAge> {
                         setState(() {
                           _weight++;
                         });
+                        Provider.of<BmiData>(context, listen: false)
+                            .setWeight(_weight);
                       } else if (weightAndAgeEnum == WeightAndAgeEnum.Age) {
                         setState(() {
                           _age++;
                         });
+                        Provider.of<BmiData>(context, listen: false)
+                            .setAge(_age);
                       }
                     },
                   ),

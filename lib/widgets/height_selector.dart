@@ -1,4 +1,6 @@
+import 'package:bmi_calculator_clone/modals/bmi_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HeightSelector extends StatefulWidget {
   const HeightSelector({
@@ -56,6 +58,8 @@ class _HeightSelectorState extends State<HeightSelector> {
                   _sliderValue = value;
                   _height = (_sliderValue * 300).round();
                 });
+                Provider.of<BmiData>(context, listen: false)
+                    .setHeight(_height);
               },
             )
           ],

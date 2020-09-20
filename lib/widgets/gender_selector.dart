@@ -1,5 +1,7 @@
 import 'package:bmi_calculator_clone/icons/gend_icons.dart';
+import 'package:bmi_calculator_clone/modals/bmi_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum GenderEnum {
   Male,
@@ -49,6 +51,8 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   _selectedGender = GenderEnum.Male;
                 });
+                Provider.of<BmiData>(context, listen: false)
+                    .setGender(_selectedGender);
                 print('male');
               },
             ),
@@ -60,6 +64,8 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   _selectedGender = GenderEnum.Female;
                 });
+                Provider.of<BmiData>(context, listen: false)
+                    .setGender(_selectedGender);
                 print('Fe-male');
               },
             ),
